@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Salário PIN-UP</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif; 
+            margin: 20px;
+            text-align: center;
+            background-color: #0D1016;
+        }
+
+        h1 {
+            color: #f9f9f9;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 22px;
+        }
+
+        label {
+            border: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+      button {
+    background-color: #E02608;
+    color: white;
+    padding: 15px 25px; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; 
+}
+
+
+        button:hover {
+            background-color:  #bb1a01;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #f9f9f9;
+        }
+
+        #total {
+            margin-top: 10px;
+            color: #4caf50;
+            font-size: 18px;
+        }
+        
+    </style>
+</head>
+<body>
+    <img src="logo-short.svg" alt="">
+    <h1>Calculadora de Salário</h1>
+    <form id="calculatorForm">
+        <label for="salario_base">Salário Base:</label>
+        <input type="number" name="salario_base" id="salario_base" required>
+        
+        <label for="nota">Nota:</label>
+        <input type="number" name="nota" id="nota" required>
+        
+        <label for="timing">Timing:</label>
+        <input type="number" name="timing" id="timing" required step="0.01" max="1.0">
+        
+        <button type="button" onclick="calcularSalario()">Calcular</button>
+    </form>
+
+    <div id="resultado"></div>
+    <div id="total"></div>
+    <div id="error"></div>
+
+    <script>
+        function calcularSalario() {
+            var salarioBase = parseFloat(document.getElementById('salario_base').value);
+            var nota = parseFloat(document.getElementById('nota').value);
+            var timing = parseFloat(document.getElementById('timing').value);
+
+            if (timing > 1.0) {
+                document.getElementById('error').innerHTML = 'Erro: O timing não pode ser superior a 1.0';
+                return;
+            }
+
+            var salarioFinal = calcularSalarioPythonStyle(nota, timing, salarioBase);
+            var totalReceber = salarioBase + salarioFinal;
+
+            document.getElementById('resultado').innerHTML = 'Salário Final: R$' + salarioFinal.toFixed(2);
+            document.getElementById('total').innerHTML = 'Total a Receber: R$' + totalReceber.toFixed(2);
+            document.getElementById('error').innerHTML = '';  
+        }
+
+        function calcularSalarioPythonStyle(nota, timing, salarioBase) {
+            if (nota >= 95) {
+                return salarioBase * 1.0 * timing;
+            } else if (89 <= nota && nota <= 94) {
+                return salarioBase * 0.70 * timing;
+            } else if (81 <= nota && nota <= 88) {
+                return salarioBase * 0.50 * timing;
+            } else if (75 <= nota && nota <= 80) {
+                return salarioBase * 0.20 * timing;
+            } else {
+                return 0;
+            }
+        }
+    </script>
+
+        
+    </script>
+</body>
+</html>
+
